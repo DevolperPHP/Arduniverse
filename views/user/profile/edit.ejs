@@ -1,0 +1,62 @@
+<%- include("../../layout/navbar") -%>
+
+<% if(err.length > 0){%>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Username is already in use',
+            text: 'Your username should be unique, try another username'
+        })
+    </script>
+<%} %>
+
+<div class="edit-profile container">
+    <form action="/profile/edit/<%= user.id%>?_method=PUT" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Name</label>
+        <input type="text" name="name" class="form-control" placeholder="name" value="<%= user.name%>" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="username" value="<%= user.username%>" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Bio</label>
+        <textarea class="form-control" name="bio" placeholder="Bio" rows="5"><%= user.bio%></textarea>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Phone number</label>
+        <input type="number" name="phone" class="form-control" placeholder="Phone Number" value="<%= user.phone%>" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Profile Image</label>
+        <input type="file" name="image" class="form-control">
+      </div>
+
+      <center>
+        <br>
+        <br>
+        <button class="btn btn-success">Edit</button>
+        <br><br>
+      </center>
+    </form>
+<center>
+  <button class="btn btn-danger" onclick="deleteAcc()">Delete Account</button>
+  <br><br>
+</center>
+    <script>
+      function deleteAcc() {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Delete Account !',
+          confirmButtonText: "Cancel",
+          html: `<center>
+           You are about to delete your account, you will not be able to get it back <br><br>
+        <form action="/profile/delete/<%= user.id%>?_method=DELETE" method="post"><button style='color: #fff; background-color: #d9534f; border:none; border-radius: 5px; padding: 5px 10px 5px 10px'>Delete</button></form>
+      </center>`
+        })
+      }
+    </script>
+</div>
+
+<%- include("../../layout/footer") -%>

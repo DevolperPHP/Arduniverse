@@ -1,0 +1,19 @@
+<%- include("../../layout/navbar") -%>
+
+<div class="cat-s-page">
+    <p class="title"><%= cat%></p>
+    <div class="cat-cards">
+        <% products.forEach(data => {%>
+            <div class="card" onclick="window.location.href='/shop/product/<%= data.name%>'">
+                <img class="card-img-top" src="/upload/images/<%= data.image%>" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-title"><%= data.name%></p>
+                  <p class="card-text"><%= data.proText%>.</p>
+                  <p class="card-text text-success">$<%= data.price%></p>
+                </div>
+              </div>
+        <%}) %>
+    </div>
+</div>
+
+<%- include("../../layout/footer") -%>
